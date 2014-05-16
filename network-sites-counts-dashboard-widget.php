@@ -34,34 +34,10 @@ class Network_Sites_Counts_Dashboard_Widget {
 
 	const VERSION = '0.1.0';
 
-	/**
-	 * Sets up our plugin
-	 * @since  0.1.0
-	 */
-	public function __construct() {
-	}
-
 	public function hooks() {
 
-		register_activation_hook( __FILE__, array( $this, '_activate' ) );
-		register_deactivation_hook( __FILE__, array( $this, '_deactivate' ) );
 		add_action( 'init', array( $this, 'init' ) );
 		add_action( 'admin_init', array( $this, 'admin_hooks' ) );
-	}
-
-	/**
-	 * Activate the plugin
-	 */
-	function _activate() {
-		// Make sure any rewrite functionality has been loaded
-		flush_rewrite_rules();
-	}
-
-	/**
-	 * Deactivate the plugin
-	 * Uninstall routines should be in uninstall.php
-	 */
-	function _deactivate() {
 
 	}
 
@@ -71,9 +47,11 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 * @return null
 	 */
 	public function init() {
+
 		$locale = apply_filters( 'plugin_locale', get_locale(), 'n_s_c_d_widget' );
 		load_textdomain( 'n_s_c_d_widget', WP_LANG_DIR . '/n_s_c_d_widget/n_s_c_d_widget-' . $locale . '.mo' );
 		load_plugin_textdomain( 'n_s_c_d_widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+
 	}
 
 	/**
@@ -82,8 +60,10 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 * @return null
 	 */
 	public function admin_hooks() {
+
 		// Add network dashboard to display data
 		add_action( 'wp_network_dashboard_setup', array( $this, 'network_dashboard_widget' ) );
+
 	}
 
 	/**
@@ -91,10 +71,17 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 * @since  0.1.0
 	 */
 	function network_dashboard_widget() {
+
+		// Filter dasboard widget title
 		$title = apply_filters( 'n_s_c_d_widget_title', __( 'Network Posts Count', 'n_s_c_d_widget' ) );
 		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, array( $this, 'dashboard_widget' ) );
+
 	}
 
+	/**
+	 * Handles rendering the widget
+	 * @since  0.1.0
+	 */
 	function dashboard_widget() {
 
 		require_once 'includes/N_S_C_Data.php';
@@ -105,6 +92,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 			echo '<p>'. __( 'No network sites!', 'n_s_c_d_widget' ) .'</p>';
 			return;
 		}
+
 		$post_type = get_post_type_object( $network_info->args( 'post_type' ) );
 		$post_type_name = isset( $post_type->labels->name ) ? $post_type->labels->name : __( 'Post' );
 
