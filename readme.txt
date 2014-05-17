@@ -4,7 +4,7 @@ Donate link:       http://webdevstudios.com
 Tags: multisite, mu, network, post count, dashboard widget
 Requires at least: 3.5.0
 Tested up to:      3.5.0
-Stable tag:        0.1.0
+Stable tag:        0.1.1
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,10 +29,16 @@ After activating, this plugin adds a dashboard widget to the network admin dashb
 
 == Changelog ==
 
+= 0.1.1 =
+* Bug Fix: Fixed site name column empty on subdomain installs.
+
 = 0.1.0 =
 * First release
 
 == Upgrade Notice ==
+
+= 0.1.1 =
+* Bug Fix: Fixed site name column empty on subdomain installs.
 
 = 0.1.0 =
 First Release

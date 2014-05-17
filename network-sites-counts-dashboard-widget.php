@@ -3,7 +3,7 @@
  * Plugin Name: Network Sites Counts Dashboard Widget
  * Plugin URI:  http://webdevstudios.com
  * Description: Display a list of post counts for all your sites in a network.
- * Version:     0.1.0
+ * Version:     0.1.1
  * Author:      WebDevStudios
  * Author URI:  http://webdevstudios.com
  * Donate link: http://webdevstudios.com

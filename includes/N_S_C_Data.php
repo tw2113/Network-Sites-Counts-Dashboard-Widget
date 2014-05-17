@@ -69,14 +69,18 @@ class N_S_C_Data {
 			return;
 		}
 
+		$is_sub_domains   = is_subdomain_install();
 		$original_blog_id = get_current_blog_id();
 		$network_data     = array();
 
 		foreach ( $sites_in_network as $network_site ) {
 
 			switch_to_blog( $network_site->blog_id );
+
+			$site = $is_sub_domains ? $network_site->domain : $network_site->path;
+
 			// filter to allow adding more data per site. Currently there is no output handler for additional info
-			$network_data[ $network_site->blog_id .':'. $network_site->path ] = apply_filters( 'n_s_c_d_widget_data_stored_per_site', $this->get_post_count(), $network_site, $this );
+			$network_data[ $network_site->blog_id .':'. $site ] = apply_filters( 'n_s_c_d_widget_data_stored_per_site', $this->get_post_count(), $network_site, $this );
 
 		}
 
