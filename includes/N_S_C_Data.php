@@ -113,5 +113,4 @@ class N_S_C_Data {
 
 		return $this->args;
 	}
-
 }
