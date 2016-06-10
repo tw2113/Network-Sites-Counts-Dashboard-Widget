@@ -25,6 +25,8 @@ Contribute [on Github](https://github.com/WebDevStudios/Network-Sites-Counts-Das
 
 == Frequently Asked Questions ==
 
+Q: How do I view more than just counts from the `post` post type?
+A: Add a GET parameter to the url, like so http://YOUR_SITE_URL/wp-admin/network/index.php?post_type=page
 
 == Screenshots ==
 
