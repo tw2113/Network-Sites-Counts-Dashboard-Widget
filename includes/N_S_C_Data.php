@@ -73,7 +73,7 @@ class N_S_C_Data {
 		) );
 
 		if ( empty( $sites_in_network ) ) {
-			return;
+			return array();
 		}
 
 		$is_sub_domains   = is_subdomain_install();
