@@ -43,8 +43,8 @@ class Network_Sites_Counts_Dashboard_Widget {
 
 	/**
 	 * Init hooks
-	 * @since  0.1.0
-	 * @return null
+	 *
+	 * @since 0.1.0
 	 */
 	public function init() {
 
@@ -56,23 +56,24 @@ class Network_Sites_Counts_Dashboard_Widget {
 
 	/**
 	 * Hooks for the Admin
-	 * @since  0.1.0
-	 * @return null
+	 *
+	 * @since 0.1.0
 	 */
 	public function admin_hooks() {
 
-		// Add network dashboard to display data
+		// Add network dashboard to display data.
 		add_action( 'wp_network_dashboard_setup', array( $this, 'network_dashboard_widget' ) );
 
 	}
 
 	/**
 	 * Register our dashboard widget
-	 * @since  0.1.0
+	 *
+	 * @since 0.1.0
 	 */
 	function network_dashboard_widget() {
 
-		// Filter dasboard widget title
+		// Filter dasboard widget title.
 		$title = apply_filters( 'n_s_c_d_widget_title', __( 'Network Posts Count', 'n_s_c_d_widget' ) );
 		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, array( $this, 'dashboard_widget' ) );
 
@@ -80,7 +81,8 @@ class Network_Sites_Counts_Dashboard_Widget {
 
 	/**
 	 * Handles rendering the widget
-	 * @since  0.1.0
+	 *
+	 * @since 0.1.0
 	 */
 	function dashboard_widget() {
 
@@ -141,7 +143,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	}
 }
 
-// init our class
+// Init our class.
 $Network_Sites_Counts_Dashboard_Widget = new Network_Sites_Counts_Dashboard_Widget();
 $Network_Sites_Counts_Dashboard_Widget->hooks();
 
