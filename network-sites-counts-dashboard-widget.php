@@ -91,7 +91,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 		$all_network_counts = $network_info->all_sites_post_count();
 
 		if ( empty( $all_network_counts ) ) {
-			echo '<p>'. __( 'No network sites!', 'n_s_c_d_widget' ) .'</p>';
+			echo '<p>'. esc_html__( 'No network sites!', 'n_s_c_d_widget' ) .'</p>';
 			return;
 		}
 
@@ -104,16 +104,16 @@ class Network_Sites_Counts_Dashboard_Widget {
 		<table class="widefat">
 			<thead>
 				<tr>
-					<th><?php _e( 'Site', 'n_s_c_d_widget' ); ?></th>
-					<th><?php printf( __( 'Published %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
-					<th><?php printf( __( 'Draft %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
+					<th><?php esc_html_e( 'Site', 'n_s_c_d_widget' ); ?></th>
+					<th><?php printf( esc_html__( 'Published %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
+					<th><?php printf( esc_html__( 'Draft %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th><?php _e( 'Site', 'n_s_c_d_widget' ); ?></th>
-					<th><?php printf( __( 'Published %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
-					<th><?php printf( __( 'Draft %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
+					<th><?php esc_html_e( 'Site', 'n_s_c_d_widget' ); ?></th>
+					<th><?php printf( esc_html__( 'Published %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
+					<th><?php printf( esc_html__( 'Draft %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -133,7 +133,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 		}
 				?>
 				<tr>
-					<td><b><?php _e( 'Total count', 'n_s_c_d_widget' ); ?></b></td>
+					<td><b><?php esc_html_e( 'Total count', 'n_s_c_d_widget' ); ?></b></td>
 					<td><?php echo $total_published; ?></td>
 					<td><?php echo $total_drafts; ?></td>
 				</tr>
