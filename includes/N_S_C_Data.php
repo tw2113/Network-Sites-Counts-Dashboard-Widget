@@ -3,19 +3,22 @@
 class N_S_C_Data {
 
 	/**
-	 * Arguments for count data retrieval
+	 * Arguments for count data retrieval.
+	 *
 	 * @var array
 	 */
 	public $args = array();
 
 	/**
-	 * Initialize the class
+	 * Initialize the class.
+	 *
 	 * @since 0.1.0
-	 * @param array $args Arguments for count data retrieval
+	 *
+	 * @param array $args Arguments for count data retrieval.
 	 */
 	function __construct( $args = array() ) {
 
-		// Check $_POST or $_GET by default
+		// Check $_POST or $_GET by default.
 		$this->args = ! empty( $args ) && is_array( $args ) ? $args : $_REQUEST;
 
 		$this->args['status'] = isset( $this->args['status'] ) && in_array( $this->args['status'], array( 'publish','future','draft','pending','private','trash','auto-draft','inherit' ), true )
@@ -30,9 +33,11 @@ class N_S_C_Data {
 	}
 
 	/**
-	 * Get post count for post type from args and status from args
-	 * @since  0.1.0
-	 * @return int   Posts count
+	 * Get post count for post type from args and status from args.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return int Posts count.
 	 */
 	function get_post_count() {
 
@@ -47,9 +52,11 @@ class N_S_C_Data {
 	}
 
 	/**
-	 * Retrieve counts data for all sites in a network (and store in a transient)
-	 * @since  0.1.0
-	 * @return array Array of sites count data
+	 * Retrieve counts data for all sites in a network (and store in a transient).
+	 *
+	 * @since 0.1.0
+	 *
+	 * @return array Array of sites count data.
 	 */
 	function all_sites_post_count() {
 
@@ -79,7 +86,7 @@ class N_S_C_Data {
 
 			$site = $is_sub_domains ? $network_site->domain : $network_site->path;
 
-			// filter to allow adding more data per site. Currently there is no output handler for additional info
+			// Filter to allow adding more data per site. Currently there is no output handler for additional info.
 			$network_data[ $network_site->blog_id .':'. $site ] = apply_filters( 'n_s_c_d_widget_data_stored_per_site', $this->get_post_count(), $network_site, $this );
 
 		}
@@ -92,10 +99,12 @@ class N_S_C_Data {
 	}
 
 	/**
-	 * Retrieve arguments from the class initialization
-	 * @since  0.1.0
-	 * @param  string  $arg Argument to retrieve
-	 * @return mixed        All args or specified arg
+	 * Retrieve arguments from the class initialization.
+	 *
+	 * @since 0.1.0
+	 *
+	 * @param string $arg Argument to retrieve.
+	 * @return mixed All args or specified arg.
 	 */
 	public function args( $arg = '' ) {
 		if ( $arg ) {
