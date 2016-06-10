@@ -117,20 +117,20 @@ class Network_Sites_Counts_Dashboard_Widget {
 				</tr>
 			</tfoot>
 			<tbody>
-			<?php
-
-		foreach ( $all_network_counts as $path => $counts ) {
-	    	$total_published += $counts->publish;
-	    	$total_drafts += $counts->draft;
-	    	$path = explode( ':', $path );
-				?>
-				<tr>
-					<td><?php echo $path[1]; ?></td>
-					<td><?php echo $counts->publish; ?></td>
-					<td><?php echo $counts->draft; ?></td>
-				</tr>
 				<?php
-		}
+
+				foreach ( $all_network_counts as $path => $counts ) {
+			        $total_published += $counts->publish;
+			        $total_drafts += $counts->draft;
+			        $path = explode( ':', $path );
+						?>
+						<tr>
+							<td><?php echo $path[1]; ?></td>
+							<td><?php echo $counts->publish; ?></td>
+							<td><?php echo $counts->draft; ?></td>
+						</tr>
+						<?php
+				}
 				?>
 				<tr>
 					<td><b><?php esc_html_e( 'Total count', 'n_s_c_d_widget' ); ?></b></td>
