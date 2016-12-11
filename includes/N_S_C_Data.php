@@ -21,7 +21,7 @@ class N_S_C_Data {
 		// Check $_POST or $_GET by default.
 		$this->args = ! empty( $args ) && is_array( $args ) ? $args : $_REQUEST;
 
-		$this->args['status'] = isset( $this->args['status'] ) && in_array( $this->args['status'], array( 'publish','future','draft','pending','private','trash','auto-draft','inherit' ), true )
+		$this->args['status'] = isset( $this->args['status'] ) && in_array( $this->args['status'], array( 'publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-draft', 'inherit' ), true )
 			? $this->args['status']
 			: 'all';
 
