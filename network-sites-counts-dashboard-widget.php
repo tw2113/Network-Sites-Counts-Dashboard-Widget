@@ -1,12 +1,11 @@
 <?php
 /**
  * Plugin Name: Network Sites Counts Dashboard Widget
- * Plugin URI:  http://webdevstudios.com
+ * Plugin URI:  https://michaelbox.net
  * Description: Display a list of post counts for all your sites in a network.
- * Version:     0.1.1
- * Author:      WebDevStudios
- * Author URI:  http://webdevstudios.com
- * Donate link: http://webdevstudios.com
+ * Version:     0.1.2
+ * Author:      Michael Beckwith
+ * Author URI:  https://michaelbox.net
  * License:     GPLv2+
  * Text Domain: n_s_c_d_widget
  * Domain Path: /languages
@@ -32,7 +31,7 @@
 
 class Network_Sites_Counts_Dashboard_Widget {
 
-	const VERSION = '0.1.1';
+	const VERSION = '0.1.2';
 
 	public function hooks() {
 

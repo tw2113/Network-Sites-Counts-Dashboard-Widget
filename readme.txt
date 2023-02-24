@@ -1,10 +1,9 @@
 === Network Sites Counts Dashboard Widget ===
-Contributors:      webdevstudios, jtsternberg
-Donate link:       http://webdevstudios.com
+Contributors:      tw2113
 Tags: multisite, mu, network, post count, dashboard widget
 Requires at least: 3.5.0
 Tested up to:      4.7
-Stable tag:        0.1.1
+Stable tag:        0.1.2
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +13,7 @@ Display a list of post counts for all your sites in a network.
 
 After activating, this plugin adds a dashboard widget to the network admin dashboard page that displays a listing of all your sites and their published and draft posts. You can view other post-type counts by adding a `post_type` query parameter, like `http://YOUR_SITE_URL/wp-admin/network/index.php?post_type=page`.
 
-Contribute [on Github](https://github.com/WebDevStudios/Network-Sites-Counts-Dashboard-Widget).
+Contribute [on Github](https://github.com/tw2113/Network-Sites-Counts-Dashboard-Widget).
 
 == Installation ==
 
@@ -32,6 +31,9 @@ A: Add a GET parameter to the url, like so http://YOUR_SITE_URL/wp-admin/network
 
 
 == Changelog ==
+
+= 0.1.2 =
+* Ownership transfer
 
 = 0.1.1 =
 * Bug Fix: Fixed site name column empty on subdomain installs.
