@@ -3,7 +3,7 @@
  * Plugin Name: Network Sites Counts Dashboard Widget
  * Plugin URI:  https://michaelbox.net
  * Description: Display a list of post counts for all your sites in a network.
- * Version:     0.1.2
+ * Version:     0.2.0
  * Author:      Michael Beckwith
  * Author URI:  https://michaelbox.net
  * License:     GPLv2+
@@ -31,12 +31,12 @@
 
 class Network_Sites_Counts_Dashboard_Widget {
 
-	const VERSION = '0.1.2';
+	const VERSION = '0.2.0';
 
 	public function hooks() {
 
-		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'admin_init', array( $this, 'admin_hooks' ) );
+		add_action( 'init', [ $this, 'init' ] );
+		add_action( 'admin_init', [ $this, 'admin_hooks' ] );
 
 	}
 
@@ -47,10 +47,16 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	public function init() {
 
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'n_s_c_d_widget' );
-		load_textdomain( 'n_s_c_d_widget', WP_LANG_DIR . '/n_s_c_d_widget/n_s_c_d_widget-' . $locale . '.mo' );
-		load_plugin_textdomain( 'n_s_c_d_widget', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'network_sites_counts_widget' );
+		load_textdomain(
+			'network_sites_counts_widget',
+			WP_LANG_DIR . '/network_sites_counts_widget/network_sites_counts_widget-' . $locale . '.mo'
+		);
+		load_plugin_textdomain(
+			'network_sites_counts_widget',
+			false,
+			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
+		);
 	}
 
 	/**
@@ -59,7 +65,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 * @since 0.1.0
 	 */
 	public function admin_hooks() {
-		add_action( 'wp_network_dashboard_setup', array( $this, 'network_dashboard_widget' ) );
+		add_action( 'wp_network_dashboard_setup', [ $this, 'network_dashboard_widget' ] );
 	}
 
 	/**
@@ -69,8 +75,8 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	function network_dashboard_widget() {
 
-		$title = apply_filters( 'n_s_c_d_widget_title', __( 'Network Posts Count', 'n_s_c_d_widget' ) );
-		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, array( $this, 'dashboard_widget' ) );
+		$title = apply_filters( 'network_sites_counts_widget_title', __( 'Network Posts Count', 'network_sites_counts_widget' ) );
+		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, [ $this, 'dashboard_widget' ] );
 
 	}
 
@@ -81,17 +87,20 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	function dashboard_widget() {
 
-		require_once 'includes/N_S_C_Data.php';
-		$network_info = new N_S_C_Data();
+		global $wpdb;
+		require_once 'includes/Network_Sites_Counts_Data.php';
+		$network_info = new Network_Sites_Counts_Data( $wpdb );
 		$all_network_counts = $network_info->all_sites_post_count();
 
 		if ( empty( $all_network_counts ) ) {
-			echo '<p>'. esc_html__( 'No network sites!', 'n_s_c_d_widget' ) .'</p>';
+			echo '<p>'. esc_html__( 'No network sites!', 'network_sites_counts_widget' ) .'</p>';
 			return;
 		}
 
 		$post_type = get_post_type_object( $network_info->args( 'post_type' ) );
-		$post_type_name = isset( $post_type->labels->name ) ? $post_type->labels->name : __( 'Post' );
+		$post_type_name = isset( $post_type->labels->name ) ?
+			$post_type->labels->name :
+			esc_html__( 'Post', 'network_sites_counts_widget' );
 
 		$total_published = 0;
 		$total_drafts = 0;
@@ -99,16 +108,16 @@ class Network_Sites_Counts_Dashboard_Widget {
 		<table class="widefat">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Site', 'n_s_c_d_widget' ); ?></th>
-					<th><?php printf( esc_html__( 'Published %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
-					<th><?php printf( esc_html__( 'Draft %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
+					<th><?php esc_html_e( 'Site', 'network_sites_counts_widget' ); ?></th>
+					<th><?php printf( esc_html__( 'Published %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
+					<th><?php printf( esc_html__( 'Draft %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th><?php esc_html_e( 'Site', 'n_s_c_d_widget' ); ?></th>
-					<th><?php printf( esc_html__( 'Published %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
-					<th><?php printf( esc_html__( 'Draft %s', 'n_s_c_d_widget' ), $post_type_name ); ?></th>
+					<th><?php esc_html_e( 'Site', 'network_sites_counts_widget' ); ?></th>
+					<th><?php printf( esc_html__( 'Published %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
+					<th><?php printf( esc_html__( 'Draft %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -128,7 +137,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 				}
 				?>
 				<tr>
-					<td><b><?php esc_html_e( 'Total count', 'n_s_c_d_widget' ); ?></b></td>
+					<td><b><?php esc_html_e( 'Total count', 'network_sites_counts_widget' ); ?></b></td>
 					<td><?php echo $total_published; ?></td>
 					<td><?php echo $total_drafts; ?></td>
 				</tr>
