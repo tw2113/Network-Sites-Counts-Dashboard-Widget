@@ -1,13 +1,19 @@
 <?php
 
-class N_S_C_Data {
+class Network_Sites_Counts_Data {
 
 	/**
 	 * Arguments for count data retrieval.
 	 *
 	 * @var array
 	 */
-	public $args = array();
+	public $args = [];
+
+	/**
+	 * WPDB instance.
+	 * @var WPDB
+	 */
+	private $wpdb;
 
 	/**
 	 * Initialize the class.
@@ -16,14 +22,23 @@ class N_S_C_Data {
 	 *
 	 * @param array $args Arguments for count data retrieval.
 	 */
-	function __construct( $args = array() ) {
+	function __construct( $wpdb, $args = [] ) {
+
+		$this->wpdb = $wpdb;
 
 		// Check $_POST or $_GET by default.
 		$this->args = ! empty( $args ) && is_array( $args ) ? $args : $_REQUEST;
 
-		$this->args['status'] = isset( $this->args['status'] ) && in_array( $this->args['status'], array( 'publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-draft', 'inherit' ), true )
-			? $this->args['status']
-			: 'all';
+		$this->args['status'] = (
+				isset( $this->args['status'] ) &&
+				in_array(
+					$this->args['status'],
+					[ 'publish', 'future', 'draft', 'pending', 'private', 'trash', 'auto-draft', 'inherit' ],
+					true
+				)
+			)
+				? $this->args['status']
+				: 'all';
 
 		$this->args['post_type'] = isset( $this->args['post_type'] )
 			? sanitize_text_field( $this->args['post_type'] )
@@ -37,7 +52,7 @@ class N_S_C_Data {
 	 *
 	 * @since 0.1.0
 	 *
-	 * @return int Posts count.
+	 * @return stdClass|int Posts count.
 	 */
 	function get_post_count() {
 
@@ -64,21 +79,19 @@ class N_S_C_Data {
 			return $network_data;
 		}
 
-		global $wpdb;
-
-		$sites_in_network = $wpdb->get_results( $wpdb->prepare(
-			"SELECT * FROM {$wpdb->blogs} WHERE  spam = '0'
+		$sites_in_network = $this->wpdb->get_results( $this->wpdb->prepare(
+			"SELECT * FROM {$this->wpdb->blogs} WHERE  spam = '0'
 			AND deleted = '0' AND archived = '0'
 			ORDER BY registered DESC, 5", ARRAY_A
 		) );
 
 		if ( empty( $sites_in_network ) ) {
-			return array();
+			return [];
 		}
 
 		$is_sub_domains   = is_subdomain_install();
 		$original_blog_id = get_current_blog_id();
-		$network_data     = array();
+		$network_data     = [];
 
 		foreach ( $sites_in_network as $network_site ) {
 
@@ -87,8 +100,12 @@ class N_S_C_Data {
 			$site = $is_sub_domains ? $network_site->domain : $network_site->path;
 
 			// Filter to allow adding more data per site. Currently there is no output handler for additional info.
-			$network_data[ $network_site->blog_id .':'. $site ] = apply_filters( 'n_s_c_d_widget_data_stored_per_site', $this->get_post_count(), $network_site, $this );
-
+			$network_data[ $network_site->blog_id .':'. $site ] = apply_filters(
+				'n_s_c_d_widget_data_stored_per_site',
+				$this->get_post_count(),
+				$network_site,
+				$this
+			);
 		}
 
 		switch_to_blog( $original_blog_id );
@@ -108,7 +125,9 @@ class N_S_C_Data {
 	 */
 	public function args( $arg = '' ) {
 		if ( $arg ) {
-			return array_key_exists( $arg, $this->args ) ? $this->args[ $arg ] : false;
+			return array_key_exists( $arg, $this->args ) ?
+				$this->args[ $arg ] :
+				false;
 		}
 
 		return $this->args;
