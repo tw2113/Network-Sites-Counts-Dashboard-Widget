@@ -8,7 +8,6 @@
  * Author URI:  https://michaelbox.net
  * License:     GPLv2+
  * Text Domain: network-sites-counts-dashboard-widget
- * Domain Path: /languages
  * Requires PHP: 7.4
  */
 
@@ -46,17 +45,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 * @since 0.1.0
 	 */
 	public function init() {
-
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'network-sites-counts-dashboard-widget' );
-		load_textdomain(
-			'network-sites-counts-dashboard-widget',
-			WP_LANG_DIR . '/network-sites-counts-dashboard-widget/network-sites-counts-dashboard-widget-' . $locale . '.mo'
-		);
-		load_plugin_textdomain(
-			'network-sites-counts-dashboard-widget',
-			false,
-			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
-		);
+		load_plugin_textdomain( 'network-sites-counts-dashboard-widget' );
 	}
 
 	/**
