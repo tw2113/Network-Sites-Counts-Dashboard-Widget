@@ -7,11 +7,11 @@ Stable tag:        1.0.0
 License:           GPLv2 or later
 License URI:       http://www.gnu.org/licenses/gpl-2.0.html
 
-Display a list of post counts for all your sites in a network.
+Display a list of post counts for all your sites in your network.
 
 == Description ==
 
-After activating, this plugin adds a dashboard widget to the network admin dashboard page that displays a listing of all your sites and their published and draft posts. You can view other post-type counts by adding a `post_type` query parameter, like `http://YOUR_SITE_URL/wp-admin/network/index.php?post_type=page`.
+A new dashboard widget in your network admin dashboard will show total published and draft posts and pages across all the sites in your network, giving you a snapshot of the current status of your total content.
 
 Contribute [on Github](https://github.com/tw2113/Network-Sites-Counts-Dashboard-Widget).
 
@@ -22,15 +22,11 @@ Contribute [on Github](https://github.com/tw2113/Network-Sites-Counts-Dashboard-
 1. Upload the entire `/network-sites-counts-dashboard-widget` directory to the `/wp-content/plugins/` directory.
 2. Activate Network Sites Counts Dashboard Widget through the 'Plugins' menu in WordPress.
 
-== Frequently Asked Questions ==
-
-Q: How do I view more than just counts from the `post` post type?
-A: Add a GET parameter to the url, like so http://YOUR_SITE_URL/wp-admin/network/index.php?post_type=page
-
-== Screenshots ==
-
-
 == Changelog ==
+
+= 1.0.0 =
+* Code refresh and confirmation of working with WordPress 6.2
+* Updated textdomain
 
 = 0.1.2 =
 * Ownership transfer
