@@ -26,7 +26,8 @@ Contribute [on Github](https://github.com/tw2113/Network-Sites-Counts-Dashboard-
 
 = 1.0.0 =
 * Code refresh and confirmation of working with WordPress 6.2
-* Updated textdomain
+* Updated textdomain.
+* Delete transients upon site addition.
 
 = 0.1.2 =
 * Ownership transfer
