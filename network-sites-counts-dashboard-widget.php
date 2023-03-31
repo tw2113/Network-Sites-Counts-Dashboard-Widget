@@ -7,7 +7,7 @@
  * Author:      Michael Beckwith
  * Author URI:  https://michaelbox.net
  * License:     GPLv2+
- * Text Domain: n_s_c_d_widget
+ * Text Domain: network-sites-counts-dashboard-widget
  * Domain Path: /languages
  */
 
@@ -47,13 +47,13 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	public function init() {
 
-		$locale = apply_filters( 'plugin_locale', get_locale(), 'network_sites_counts_widget' );
+		$locale = apply_filters( 'plugin_locale', get_locale(), 'network-sites-counts-dashboard-widget' );
 		load_textdomain(
-			'network_sites_counts_widget',
-			WP_LANG_DIR . '/network_sites_counts_widget/network_sites_counts_widget-' . $locale . '.mo'
+			'network-sites-counts-dashboard-widget',
+			WP_LANG_DIR . '/network-sites-counts-dashboard-widget/network-sites-counts-dashboard-widget-' . $locale . '.mo'
 		);
 		load_plugin_textdomain(
-			'network_sites_counts_widget',
+			'network-sites-counts-dashboard-widget',
 			false,
 			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
@@ -75,7 +75,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	function network_dashboard_widget() {
 
-		$title = apply_filters( 'network_sites_counts_widget_title', __( 'Network Posts Count', 'network_sites_counts_widget' ) );
+		$title = apply_filters( 'network-sites-counts-dashboard-widget_title', __( 'Network Posts Count', 'network-sites-counts-dashboard-widget' ) );
 		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, [ $this, 'dashboard_widget' ] );
 
 	}
@@ -93,14 +93,14 @@ class Network_Sites_Counts_Dashboard_Widget {
 		$all_network_counts = $network_info->all_sites_post_count();
 
 		if ( empty( $all_network_counts ) ) {
-			echo '<p>'. esc_html__( 'No network sites!', 'network_sites_counts_widget' ) .'</p>';
+			echo '<p>'. esc_html__( 'No network sites!', 'network-sites-counts-dashboard-widget' ) .'</p>';
 			return;
 		}
 
 		$post_type = get_post_type_object( $network_info->args( 'post_type' ) );
 		$post_type_name = isset( $post_type->labels->name ) ?
 			$post_type->labels->name :
-			esc_html__( 'Post', 'network_sites_counts_widget' );
+			esc_html__( 'Post', 'network-sites-counts-dashboard-widget' );
 
 		$total_published = 0;
 		$total_drafts = 0;
@@ -108,16 +108,16 @@ class Network_Sites_Counts_Dashboard_Widget {
 		<table class="widefat">
 			<thead>
 				<tr>
-					<th><?php esc_html_e( 'Site', 'network_sites_counts_widget' ); ?></th>
-					<th><?php printf( esc_html__( 'Published %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
-					<th><?php printf( esc_html__( 'Draft %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
+					<th><?php esc_html_e( 'Site', 'network-sites-counts-dashboard-widget' ); ?></th>
+					<th><?php printf( esc_html__( 'Published %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
+					<th><?php printf( esc_html__( 'Draft %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
-					<th><?php esc_html_e( 'Site', 'network_sites_counts_widget' ); ?></th>
-					<th><?php printf( esc_html__( 'Published %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
-					<th><?php printf( esc_html__( 'Draft %s', 'network_sites_counts_widget' ), $post_type_name ); ?></th>
+					<th><?php esc_html_e( 'Site', 'network-sites-counts-dashboard-widget' ); ?></th>
+					<th><?php printf( esc_html__( 'Published %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
+					<th><?php printf( esc_html__( 'Draft %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -137,7 +137,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 				}
 				?>
 				<tr>
-					<td><b><?php esc_html_e( 'Total count', 'network_sites_counts_widget' ); ?></b></td>
+					<td><b><?php esc_html_e( 'Total count', 'network-sites-counts-dashboard-widget' ); ?></b></td>
 					<td><?php echo $total_published; ?></td>
 					<td><?php echo $total_drafts; ?></td>
 				</tr>
