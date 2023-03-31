@@ -79,7 +79,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	public function flush_transient_on_new_site( WP_Site $new_site ) : WP_Site {
 		global $wpdb;
-		$transient_partial = '_site_transient_all_sites_post_count';
+		$transient_partial = 'all_sites_post_count';
 		$transients = $wpdb->get_results(
 			$wpdb->prepare(
 				"SELECT * FROM {$wpdb->sitemeta} WHERE `meta_key` LIKE %s",
@@ -89,7 +89,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 		);
 		if ( ! empty( $transients ) && is_array( $transients ) ) {
 			foreach ( $transients as $transient ) {
-				delete_transient( $transient['meta_key'] );
+				delete_site_option( $transient['meta_key'] );
 			}
 		}
 		return $new_site;
