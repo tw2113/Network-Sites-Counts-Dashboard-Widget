@@ -7,26 +7,26 @@ class Network_Sites_Counts_Data {
 	 *
 	 * @var array
 	 */
-	public $args = [];
+	public array $args = [];
 
 	/**
 	 * WPDB instance.
 	 * @var WPDB
 	 */
-	private $wpdb;
+	private WPDB $wpdb;
 
 	/**
 	 * Initialize the class.
 	 *
 	 * @since 0.1.0
 	 *
+	 * @param WPDB $wpdb  WPDB object
 	 * @param array $args Arguments for count data retrieval.
 	 */
-	function __construct( $wpdb, $args = [] ) {
+	function __construct( WPDB $wpdb, array $args = [] ) {
 
 		$this->wpdb = $wpdb;
 
-		// Check $_POST or $_GET by default.
 		$this->args = ! empty( $args ) && is_array( $args ) ? $args : $_REQUEST;
 
 		$this->args['status'] = (
@@ -44,7 +44,8 @@ class Network_Sites_Counts_Data {
 			? sanitize_text_field( $this->args['post_type'] )
 			: 'post';
 
-		$this->args['trans_id'] = $trans_id = __CLASS__.$this->args['status'].$this->args['post_type'];
+		$this->args['trans_id'] =
+			__CLASS__.$this->args['status'].$this->args['post_type'];
 	}
 
 	/**
@@ -73,9 +74,14 @@ class Network_Sites_Counts_Data {
 	 *
 	 * @return array Array of sites count data.
 	 */
-	function all_sites_post_count() {
+	function all_sites_post_count() : array {
 
-		if ( $network_data = get_site_transient( __FUNCTION__ . $this->args['trans_id'] ) ) {
+		if (
+			false !== (
+				$network_data = get_site_transient( __FUNCTION__ . $this->args['trans_id']
+				)
+			)
+		) {
 			return $network_data;
 		}
 
@@ -110,7 +116,11 @@ class Network_Sites_Counts_Data {
 
 		switch_to_blog( $original_blog_id );
 
-		set_site_transient( __FUNCTION__ . $this->args['trans_id'], $network_data, DAY_IN_SECONDS );
+		set_site_transient(
+			__FUNCTION__ . $this->args['trans_id'],
+			$network_data,
+			DAY_IN_SECONDS
+		);
 
 		return $network_data;
 	}
