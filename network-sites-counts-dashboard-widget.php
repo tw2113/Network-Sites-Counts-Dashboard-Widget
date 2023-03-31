@@ -9,10 +9,12 @@
  * License:     GPLv2+
  * Text Domain: network-sites-counts-dashboard-widget
  * Domain Path: /languages
+ * Requires PHP: 7.4
  */
 
 /**
  * Copyright (c) 2014 WebDevStudios (email : contact@webdevstudios.com)
+ * COpyright (c) 2023 Michael Beckwith (email : tw2113@gmail.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
