@@ -104,7 +104,7 @@ it		add_action( 'wp_insert_site', [ $this, 'flush_transient_on_new_site' ] );
 
 		global $wpdb;
 		require_once 'includes/Network_Sites_Counts_Data.php';
-		$network_info = new Network_Sites_Counts_Data( $wpdb );
+		$network_info       = new Network_Sites_Counts_Data( $wpdb );
 		$all_network_counts = $network_info->all_sites_post_count();
 
 		if ( empty( $all_network_counts ) ) {
@@ -112,32 +112,46 @@ it		add_action( 'wp_insert_site', [ $this, 'flush_transient_on_new_site' ] );
 			return;
 		}
 
-		$post_type = get_post_type_object( $network_info->args( 'post_type' ) );
-		$post_type_name = isset( $post_type->labels->name ) ?
-			$post_type->labels->name :
-			esc_html__( 'Post', 'network-sites-counts-dashboard-widget' );
+		$post_type      = get_post_type_object( $network_info->args( 'post_type' ) );
+		$post_type_name = $post_type->labels->name ?? esc_html__( 'Post', 'network-sites-counts-dashboard-widget' );
 
-		$total_published = 0;
-		$total_drafts = 0;
+		$total_published = $total_drafts = 0;
 		?>
 		<table class="widefat">
 			<thead>
 				<tr>
 					<th><?php esc_html_e( 'Site', 'network-sites-counts-dashboard-widget' ); ?></th>
-					<th><?php printf( esc_html__( 'Published %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
-					<th><?php printf( esc_html__( 'Draft %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
+					<th><?php printf(
+						esc_html__( 'Published %s', 'network-sites-counts-dashboard-widget' ),
+						$post_type_name
+						); ?>
+					</th>
+					<th><?php printf(
+						esc_html__( 'Draft %s', 'network-sites-counts-dashboard-widget' ),
+						$post_type_name
+						); ?>
+					</th>
 				</tr>
 			</thead>
 			<tfoot>
 				<tr>
 					<th><?php esc_html_e( 'Site', 'network-sites-counts-dashboard-widget' ); ?></th>
-					<th><?php printf( esc_html__( 'Published %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
-					<th><?php printf( esc_html__( 'Draft %s', 'network-sites-counts-dashboard-widget' ), $post_type_name ); ?></th>
+					<th><?php
+						printf(
+							esc_html__( 'Published %s', 'network-sites-counts-dashboard-widget' ),
+							$post_type_name
+						); ?>
+					</th>
+					<th><?php
+						printf(
+							esc_html__( 'Draft %s', 'network-sites-counts-dashboard-widget' ),
+							$post_type_name
+						); ?>
+					</th>
 				</tr>
 			</tfoot>
 			<tbody>
 				<?php
-
 				foreach ( $all_network_counts as $path => $counts ) {
 			        $total_published += $counts->publish;
 			        $total_drafts += $counts->draft;
@@ -161,8 +175,6 @@ it		add_action( 'wp_insert_site', [ $this, 'flush_transient_on_new_site' ] );
 		<?php
 	}
 }
-
-// Init our class.
 $Network_Sites_Counts_Dashboard_Widget = new Network_Sites_Counts_Dashboard_Widget();
 $Network_Sites_Counts_Dashboard_Widget->hooks();
 
