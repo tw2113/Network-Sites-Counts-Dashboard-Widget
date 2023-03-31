@@ -64,7 +64,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 */
 	function network_dashboard_widget() {
 
-		$title = apply_filters( 'network-sites-counts-dashboard-widget_title', __( 'Network Posts Count', 'network-sites-counts-dashboard-widget' ) );
+		$title = apply_filters( 'network_sites_counts_widget_title', __( 'Network Posts Count', 'network-sites-counts-dashboard-widget' ) );
 		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, [ $this, 'dashboard_widget' ] );
 
 	}
