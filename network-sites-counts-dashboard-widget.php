@@ -37,7 +37,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	public function hooks() {
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'admin_init', [ $this, 'admin_hooks' ] );
-it		add_action( 'wp_insert_site', [ $this, 'flush_transient_on_new_site' ] );
+		add_action( 'wp_insert_site', [ $this, 'flush_transient_on_new_site' ] );
 	}
 
 	/**
