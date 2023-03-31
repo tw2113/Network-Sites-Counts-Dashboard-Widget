@@ -3,7 +3,7 @@
  * Plugin Name: Network Sites Counts Dashboard Widget
  * Plugin URI:  https://michaelbox.net
  * Description: Display a list of post counts for all your sites in a network.
- * Version:     0.2.0
+ * Version:     1.0.0
  * Author:      Michael Beckwith
  * Author URI:  https://michaelbox.net
  * License:     GPLv2+
@@ -14,7 +14,7 @@
 
 /**
  * Copyright (c) 2014 WebDevStudios (email : contact@webdevstudios.com)
- * COpyright (c) 2023 Michael Beckwith (email : tw2113@gmail.com)
+ * Copyright (c) 2023 Michael Beckwith (email : tw2113@gmail.com)
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License, version 2 or, at
@@ -33,13 +33,11 @@
 
 class Network_Sites_Counts_Dashboard_Widget {
 
-	const VERSION = '0.2.0';
+	const VERSION = '1.0.0';
 
 	public function hooks() {
-
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'admin_init', [ $this, 'admin_hooks' ] );
-
 	}
 
 	/**
