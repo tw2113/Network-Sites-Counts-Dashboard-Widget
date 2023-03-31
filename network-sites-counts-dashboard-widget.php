@@ -37,6 +37,7 @@ class Network_Sites_Counts_Dashboard_Widget {
 	public function hooks() {
 		add_action( 'init', [ $this, 'init' ] );
 		add_action( 'admin_init', [ $this, 'admin_hooks' ] );
+it		add_action( 'wp_insert_site', [ $this, 'flush_transient_on_new_site' ] );
 	}
 
 	/**
@@ -63,10 +64,35 @@ class Network_Sites_Counts_Dashboard_Widget {
 	 * @since 0.1.0
 	 */
 	function network_dashboard_widget() {
-
 		$title = apply_filters( 'network_sites_counts_widget_title', __( 'Network Posts Count', 'network-sites-counts-dashboard-widget' ) );
 		wp_add_dashboard_widget( 'network_sites_counts_dashboard_widget', $title, [ $this, 'dashboard_widget' ] );
+	}
 
+	/**
+	 * Flush our all site transient on new site add.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param WP_Site $new_site
+	 *
+	 * @return WP_Site
+	 */
+	public function flush_transient_on_new_site( WP_Site $new_site ) : WP_Site {
+		global $wpdb;
+		$transient_partial = '_site_transient_all_sites_post_count';
+		$transients = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT * FROM {$wpdb->sitemeta} WHERE `meta_key` LIKE %s",
+				'%' . $wpdb->esc_like( $transient_partial ) . '%'
+			),
+			ARRAY_A
+		);
+		if ( ! empty( $transients ) && is_array( $transients ) ) {
+			foreach ( $transients as $transient ) {
+				delete_transient( $transient['meta_key'] );
+			}
+		}
+		return $new_site;
 	}
 
 	/**
